@@ -14,6 +14,7 @@ type Article struct {
 	Date    time.Time
 	URL     string
 	FeedID  string
+	Images  []string
 }
 
 type Feed interface {

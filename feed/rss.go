@@ -28,6 +28,7 @@ func (r *RSS) Fetch(num uint8, t *[]Article) error {
 			Content: item.Content,
 			Date:    *item.PublishedParsed,
 			URL:     item.Link,
+			Images:  []string{item.Image.URL},
 			FeedID:  r.ID,
 		})
 	}
