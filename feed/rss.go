@@ -15,24 +15,32 @@ func NewRSS(url, name string) RSS {
 	}
 }
 
-func (r *RSS) Fetch(num uint8, t *[]Article) error {
+func (r *RSS) Fetch() error {
 	fp := gofeed.NewParser()
 	feed, err := fp.ParseURL(r.URL)
 	if err != nil {
 		return err
 	}
-	for _, item := range feed.Items {
+
+	articles := feed.Items[:MAX_ARTICLES]
+	for pos := 0; pos < len(articles); pos++ {
+		item := feed.Items[len(articles)-pos-1]
 		// shift array
 		z := *new([]Article)
 		z = append(z, r.Articles[0:len(r.Articles)-1]...)
 		// push article to array
+		images := new([]string)
+		if item.Image != nil {
+			*images = append(*images, item.Image.URL)
+		}
+
 		r.Articles[0] = Article{
 			ID:      item.GUID,
 			Title:   item.Title,
 			Content: item.Content,
 			Date:    *item.PublishedParsed,
 			URL:     item.Link,
-			Images:  []string{item.Image.URL},
+			Images:  *images,
 			FeedID:  r.ID,
 		}
 		// fill rest of array

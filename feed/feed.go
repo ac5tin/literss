@@ -20,7 +20,7 @@ type Article struct {
 }
 
 type Feed interface {
-	Fetch(num uint8, t *[]Article) error
+	Fetch() error
 	Get(t *[]Article) error
 }
 
@@ -41,7 +41,7 @@ func NewFeedBase(url, name string) feedBase {
 	}
 }
 
-func (f *feedBase) Fetch(num uint8, t *[]Article) error {
+func (f *feedBase) Fetch() error {
 	return fmt.Errorf("Fetch() not implemented")
 }
 

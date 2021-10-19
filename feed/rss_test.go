@@ -39,3 +39,17 @@ func TestArrayShift(t *testing.T) {
 	}
 	t.Errorf("array shift not equal")
 }
+
+func TestRSSFetchGet(t *testing.T) {
+	a := NewRSS("http://feeds.bbci.co.uk/news/world/rss.xml", "BBC")
+	if err := a.Fetch(); err != nil {
+		t.Errorf(err.Error())
+	}
+
+	v := new([]Article)
+	if err := a.Get(v); err != nil {
+		t.Errorf(err.Error())
+	}
+
+	return
+}
