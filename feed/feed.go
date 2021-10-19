@@ -7,6 +7,8 @@ import (
 	uf "github.com/ac5tin/usefulgo"
 )
 
+const MAX_ARTICLES uint8 = 15
+
 type Article struct {
 	ID      string
 	Title   string
@@ -26,7 +28,7 @@ type feedBase struct {
 	ID       string
 	URL      string
 	Name     string
-	Articles []Article
+	Articles [MAX_ARTICLES]Article
 	Feed
 }
 
@@ -35,7 +37,7 @@ func NewFeedBase(url, name string) feedBase {
 		ID:       uf.GenUUIDV4(),
 		URL:      url,
 		Name:     name,
-		Articles: make([]Article, 0),
+		Articles: *new([MAX_ARTICLES]Article),
 	}
 }
 
