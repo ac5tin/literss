@@ -29,6 +29,7 @@ type Feed interface {
 	Fetch() error
 	Get(t *[]Article) error
 	AutoFetch() error
+	StopAutoFetch() error
 }
 
 type feedBase struct {
@@ -58,4 +59,8 @@ func (f *feedBase) Get(t *[]Article) error {
 
 func (f *feedBase) AutoFetch() error {
 	return fmt.Errorf("AutoFetch() not implemented")
+}
+
+func (f *feedBase) StopAutoFetch() error {
+	return fmt.Errorf("StopAutoFetch() not implemented")
 }

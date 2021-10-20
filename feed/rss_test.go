@@ -59,9 +59,11 @@ func TestRSSFetchGet(t *testing.T) {
 	log.Println("ending RSS Feed in 10 seconds")
 	time.Sleep(10 * time.Second)
 	log.Println("ending RSS Feed now")
-	a.cc()
-
-	time.Sleep(5 * time.Second)
+	a.StopAutoFetch()
+	time.Sleep(1 * time.Second)
+	if err := a.ctx.Err(); err == nil {
+		t.Errorf("Not closed")
+	}
 	log.Println("Ended RSS")
 
 	return

@@ -82,3 +82,8 @@ func (r *RSS) AutoFetch() error {
 	}()
 	return nil
 }
+
+func (r *RSS) StopAutoFetch() error {
+	r.cc()
+	return nil
+}
