@@ -16,13 +16,14 @@ const (
 )
 
 type Article struct {
-	ID      string
-	Title   string
-	Content string
-	Date    time.Time
-	URL     string
-	FeedID  string
-	Images  []string
+	ID          string
+	Title       string
+	Content     string
+	Description string
+	Date        time.Time
+	URL         string
+	FeedID      string
+	Images      []string
 }
 
 type Feed interface {

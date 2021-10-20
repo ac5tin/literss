@@ -44,13 +44,14 @@ func (r *RSS) Fetch() error {
 		}
 
 		r.Articles[0] = Article{
-			ID:      item.GUID,
-			Title:   item.Title,
-			Content: item.Content,
-			Date:    *item.PublishedParsed,
-			URL:     item.Link,
-			Images:  *images,
-			FeedID:  r.ID,
+			ID:          item.GUID,
+			Title:       item.Title,
+			Content:     item.Content,
+			Description: item.Description,
+			Date:        *item.PublishedParsed,
+			URL:         item.Link,
+			Images:      *images,
+			FeedID:      r.ID,
 		}
 		// fill rest of array
 		for i, y := range z {
