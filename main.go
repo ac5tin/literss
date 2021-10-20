@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"literss/feed"
 	"log"
 	"os"
 	"strconv"
@@ -22,6 +23,10 @@ func main() {
 	}
 
 	prod := flag.Bool("prod", false, "Enable prefork in Production")
+
+	// init feed store
+	fs := feed.NewFeedStore()
+	feed.FS = &fs
 
 	// fiber app
 	app := fiber.New(fiber.Config{
