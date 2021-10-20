@@ -4,6 +4,7 @@ import (
 	"log"
 	"reflect"
 	"testing"
+	"time"
 )
 
 func TestRSSInterface(t *testing.T) {
@@ -50,6 +51,18 @@ func TestRSSFetchGet(t *testing.T) {
 	if err := a.Get(v); err != nil {
 		t.Errorf(err.Error())
 	}
+
+	if err := a.AutoFetch(); err != nil {
+		t.Errorf(err.Error())
+	}
+
+	log.Println("ending RSS Feed in 10 seconds")
+	time.Sleep(10 * time.Second)
+	log.Println("ending RSS Feed now")
+	a.cc()
+
+	time.Sleep(5 * time.Second)
+	log.Println("Ended RSS")
 
 	return
 }

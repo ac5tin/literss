@@ -9,6 +9,12 @@ import (
 
 const MAX_ARTICLES uint8 = 15
 
+type FeedType string
+
+const (
+	FeedTypeRSS FeedType = "RSS"
+)
+
 type Article struct {
 	ID      string
 	Title   string
@@ -22,6 +28,7 @@ type Article struct {
 type Feed interface {
 	Fetch() error
 	Get(t *[]Article) error
+	AutoFetch() error
 }
 
 type feedBase struct {
@@ -47,4 +54,8 @@ func (f *feedBase) Fetch() error {
 
 func (f *feedBase) Get(t *[]Article) error {
 	return fmt.Errorf("Get() not implemented")
+}
+
+func (f *feedBase) AutoFetch() error {
+	return fmt.Errorf("AutoFetch() not implemented")
 }

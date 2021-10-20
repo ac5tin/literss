@@ -1,17 +1,26 @@
 package feed
 
 import (
+	"context"
+	"log"
+	"time"
+
 	"github.com/mmcdole/gofeed"
 )
 
 type RSS struct {
 	*feedBase
+	ctx context.Context
+	cc  context.CancelFunc
 }
 
 func NewRSS(url, name string) RSS {
 	fd := NewFeedBase(url, name)
+	ctx, cc := context.WithCancel(context.Background())
 	return RSS{
 		&fd,
+		ctx,
+		cc,
 	}
 }
 
@@ -53,5 +62,23 @@ func (r *RSS) Fetch() error {
 
 func (r *RSS) Get(t *[]Article) error {
 	*t = r.Articles[:]
+	return nil
+}
+
+func (r *RSS) AutoFetch() error {
+	go func() {
+		for {
+			select {
+			case <-r.ctx.Done():
+				return
+			default:
+				// dont block
+			}
+			if err := r.Fetch(); err != nil {
+				log.Println(err.Error())
+			}
+			time.Sleep(15 * time.Minute)
+		}
+	}()
 	return nil
 }
