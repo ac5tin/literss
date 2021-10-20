@@ -24,6 +24,7 @@ func main() {
 	}
 
 	prod := flag.Bool("prod", false, "Enable prefork in Production")
+	flag.Parse()
 
 	// init feed store
 	fs := feed.NewFeedStore()
