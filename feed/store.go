@@ -12,7 +12,7 @@ type FeedStore struct {
 	Feeds map[string]Feed
 }
 
-func (f *FeedStore) NewFeedStore() FeedStore {
+func NewFeedStore() FeedStore {
 	return FeedStore{
 		Feeds: make(map[string]Feed),
 	}
@@ -39,6 +39,8 @@ func (f *FeedStore) AddRSSFeed(rssURL, name string) error {
 	rssFeed := NewRSS(rssURL, name)
 	// fetch feeds in the background
 	go rssFeed.Fetch()
+	// auto fetch
+	go rssFeed.AutoFetch()
 	// assign feed to store
 	f.Lock.Lock()
 	f.Feeds[string(hash)] = &rssFeed
