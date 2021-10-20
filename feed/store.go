@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"sync"
+	"time"
 )
 
 type FeedStore struct {
@@ -68,6 +69,16 @@ func (f *FeedStore) GetRSSFeed(rssURL, name string) (Feed, error) {
 	f.Lock.Unlock()
 
 	return &rssFeed, nil
+}
+
+func (f *FeedStore) AutoReport() {
+	for {
+		log.Println("============================\nReport:\n----------")
+		log.Printf("Current Timestamp: %v", time.Now())
+		log.Printf("Total feeds: %d\n", len(f.Feeds))
+		log.Println("============================")
+		time.Sleep(15 * time.Minute)
+	}
 }
 
 var FS *FeedStore

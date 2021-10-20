@@ -29,6 +29,7 @@ func main() {
 	// init feed store
 	fs := feed.NewFeedStore()
 	feed.FS = &fs
+	go feed.FS.AutoReport()
 
 	// fiber app
 	app := fiber.New(fiber.Config{
