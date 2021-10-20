@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"literss/api"
 	"literss/feed"
 	"log"
 	"os"
@@ -40,6 +41,9 @@ func main() {
 
 	// ==== API ROUTES =====
 	app.Get("/ping", func(c *fiber.Ctx) error { c.Status(200).Send([]byte("pong")); return nil })
+
+	apigroup := app.Group("/api")
+	api.Routes(&apigroup)
 
 	// start server
 	log.Println(fmt.Sprintf("Listening on PORT %d", addr))
